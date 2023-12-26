@@ -1,5 +1,3 @@
-SSH_PRIVATE_KEY: ${ { secrets.EC2_SSH_KEY }}
-    REMOTE_HOST: ${ { secrets.HOST_DNS }}
 name: Deploy to EC2
 
 on:
