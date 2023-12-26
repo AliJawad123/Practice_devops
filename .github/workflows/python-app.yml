@@ -1,37 +1,3 @@
-name: Hello_EC2_Here
-
-# Trigger deployment only on push to master branch
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    name: Deploy to EC2 on master branch push
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout the files
-        uses: actions/checkout@v2
-
-      - name: Deploy to Server 1
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
-
-      - name: Execute .sh file on EC2
-        run: |
-          ssh -i ${{secrets.EC2_SSH_KEY}} ${{secrets.USERNAME}}@${{secrets.HOST_DNS}}
-
-
-
-
-
-//////////////////////
 
 name: Deploy to EC2
 
@@ -58,17 +24,13 @@ jobs:
       - name: Deploy Application to EC2
         run: |
           # Replace 'your-ec2-ip' and 'your-ec2-key.pem' with your EC2 instance details
-          ssh -o StrictHostKeyChecking=no -i path/to/your/private/key.pem ec2-user@your-ec2-ip 'bash -s' << 'ENDSSH'
-            # Navigate to your application directory
-            cd /path/to/your/application
+          ssh -o StrictHostKeyChecking=no -i practice_KP.pem  ec2-16-171-63-67.eu-north-1.compute.amazonaws.com 'bash -s' << 'ENDSSH'
+            
 
-            # Pull the latest changes from the repository
-            git pull origin main
+          # Pull the latest changes from the repository
+          git pull origin main
 
-            # Install Python dependencies
-            pip install -r requirements.txt
-
-            # Run your Python application
-            python app.py
+          # Run your Python application
+          python app.py
           ENDSSH
 
