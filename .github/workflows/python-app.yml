@@ -1,4 +1,4 @@
-name: Push-to-EC2
+name: Push code to EC2 & run code on it
 
 # Trigger deployment only on push to master branch
 on:
