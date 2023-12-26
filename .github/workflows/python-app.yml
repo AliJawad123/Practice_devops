@@ -18,6 +18,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.EC2_SSH_KEY }}
           aws-secret-access-key: ${{ secrets.HOST_DNS }}
+          aws-region: ${{ secrets.REGION }}
 
       - name: Deploy Application to EC2
         run: |
