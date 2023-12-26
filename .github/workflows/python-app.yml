@@ -25,4 +25,8 @@ jobs:
 
       - name: Execute .sh file on EC2
         run: |
+          ssh -i ${{secrets.EC2_SSH_KEY}} ${{secrets.USERNAME}}@${{secrets.HOST_DNS}} 'bash -s' < path/to/your/script.sh
+
           ssh -i ${{secrets.EC2_SSH_KEY}} ${{secrets.USERNAME}}@${{secrets.HOST_DNS}} 'bash -s' < cd Desktop
+      - name: Checker
+        run: touch file.txt
