@@ -20,5 +20,5 @@ jobs:
 
     - name: Install dependencies and run application on EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_KEY }} ubuntu@ec2-16-171-63-67.eu-north-1.compute.amazonaws.com " sudo apt-get update && sudo apt-get install -y python3 python3-pip "
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_KEY }} ubuntu@ec2-16-171-63-67.eu-north-1.compute.amazonaws.com 
 
