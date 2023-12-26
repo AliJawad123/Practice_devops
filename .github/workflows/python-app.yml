@@ -1,10 +1,10 @@
 name: Push-to-EC2
 
-# Trigger deployment only on push to main branch
+# Trigger deployment only on push to master branch
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -15,8 +15,14 @@ jobs:
       - name: Checkout the files
         uses: actions/checkout@v2
 
-      - name: Install dependencies on EC2
-        run: ssh -i ${{secrets.EC2_SSH_KEY}} ubuntu@${{ secrets.HOST_DNS }} 
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+      - name: Execute .sh file on EC2
+        run: |
+          ssh -i ${{secrets.EC2_SSH_KEY}} ${{secrets.USERNAME}}@${{secrets.HOST_DNS}} 'bash -s' install.sh
