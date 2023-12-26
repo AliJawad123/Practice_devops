@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies on EC2
-        run: ssh -i ${{secrets.EC2_SSH_KEY}} ubuntu@${{ secrets.HOST_DNS }} 'bash install.sh'
+        run: ssh -i ${{secrets.EC2_SSH_KEY}} ubuntu@${{ secrets.HOST_DNS }} 
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
