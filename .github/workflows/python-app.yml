@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: EC2 Command Execution
 
 on:
   push:
@@ -7,28 +7,19 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to EC2 STAGING
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Configure AWS CLI
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.EC2_SSH_KEY }}
-          aws-secret-access-key: ${{ secrets.HOST_DNS }}
-          aws-region: ${{ secrets.REGION }}
-
-      - name: Deploy Application to EC2
+      - uses: actions/checkout@v2
+      - name: Build & Deploy
+        env:
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_STAGING }}
+          HOSTNAME: ${{ secrets.SSH_HOST_STAGinG }}
+          USER_NAME: ${{ secrets.USER_NAME }}
         run: |
-          # Replace 'your-ec2-ip' and 'your-ec2-key.pem' with your EC2 instance details
-          ssh -o StrictHostKeyChecking=no -i practice_KP.pem  ec2-16-171-63-67.eu-north-1.compute.amazonaws.com 'bash -s' << 'ENDSSH'
-            
-
-          # Pull the latest changes from the repository
-          git pull origin main
-
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          echo "this is: $USER_NAME"
           # Run your Python application
           python app.py
           ENDSSH
