@@ -22,9 +22,3 @@ jobs:
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
 
-      - name: Install Python, pip, and Tkinter on EC2
-        run: |
-          ssh -i ${{ secrets.EC2_SSH_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST_DNS }} "sudo apt-get update && sudo apt-get install -y python3 python3-pip python3-tk"
-
-      - name: Run calculator.py on EC2
-        run: ssh -i ${{ secrets.EC2_SSH_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST_DNS }} "python3 ${{ secrets.TARGET_DIR }}/calculator.py"
